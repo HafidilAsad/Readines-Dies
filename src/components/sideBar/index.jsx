@@ -3,15 +3,18 @@ import {
   PicRightOutlined,
   UserOutlined,
   VerticalAlignBottomOutlined,
+  BorderInnerOutlined,
 } from "@ant-design/icons";
 import { Button, Layout, Menu, theme } from "antd";
 import { useState } from "react";
 import { MenuUnfoldOutlined } from "@ant-design/icons";
 import logo from "../assets/logo.png";
-import Contentdies from "../content";
+import ContentSdb from "../content";
 import ContentReport from "../contentReport";
 import ContentDetail from "../contentDetail";
+import ContentListMaintenance from "../contentListMaintenance";
 import Clock from "../clock";
+import CurrentDate from "../currentDate";
 
 const { Header, Sider, Content } = Layout;
 const Sidebar = () => {
@@ -30,11 +33,13 @@ const Sidebar = () => {
   let contentComponent = null;
 
   if (activeKey === "1") {
-    contentComponent = <Contentdies />;
+    contentComponent = <ContentSdb />;
   } else if (activeKey === "3") {
     contentComponent = <ContentReport />;
   } else if (activeKey === "2") {
     contentComponent = <ContentDetail />;
+  } else if (activeKey === "4") {
+    contentComponent = <ContentListMaintenance />;
   }
 
   const menuItems = [
@@ -46,18 +51,28 @@ const Sidebar = () => {
     {
       key: "2",
       icon: <PicRightOutlined />,
-      label: "Detail Dies",
+      label: "Detail SDB",
     },
     {
       key: "3",
       icon: <VerticalAlignBottomOutlined />,
       label: "Report",
     },
+    {
+      key: "4",
+      icon: <BorderInnerOutlined />,
+      label: "List Maintenance",
+    },
   ];
 
   return (
     <Layout style={{ width: "100%", height: "100vh" }}>
-      <Sider trigger={null} collapsible collapsed={collapsed}>
+      <Sider
+        trigger={null}
+        collapsible
+        // collapsedWidth="0" ini untuk ngilangin sider nya
+        collapsed={collapsed}
+      >
         <div className="demo-logo-vertical" />
         <Menu
           theme="dark"
@@ -65,13 +80,12 @@ const Sidebar = () => {
           defaultSelectedKeys={["1"]}
           selectedKeys={[activeKey]}
           onClick={handleMenuClick}
-        >
-          {menuItems.map((item) => (
-            <Menu.Item key={item.key} icon={item.icon}>
-              {item.label}
-            </Menu.Item>
-          ))}
-        </Menu>
+          items={menuItems.map((item) => ({
+            key: item.key,
+            icon: item.icon,
+            label: item.label,
+          }))}
+        />
       </Sider>
       <Layout>
         <Header
@@ -104,8 +118,18 @@ const Sidebar = () => {
               }}
             />
           </div>
-          <div style={{ paddingRight: "30px" }}>
-            <Clock />
+
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              paddingRight: "30px",
+            }}
+          >
+            <CurrentDate />
+            <span style={{ marginLeft: "10px" }}>
+              <Clock />
+            </span>
           </div>
         </Header>
 

@@ -9,7 +9,7 @@ export default function ContentReport() {
         className="position-absolute top-0 start-0 translate-middle fs-4"
         style={{ paddingLeft: "150px" }}
       >
-        REPORT DIES
+        REPORT SDB
       </div>
       <div
         className="position-absolute top-0 start-100 translate-middle"
